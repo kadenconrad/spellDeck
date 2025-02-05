@@ -1,0 +1,28 @@
+src/
+├── components/ # Holds reusable UI pieces.
+│   ├── SpellCard/
+│       ├── SpellCard.tsx
+│   │   └── SpellCard.css
+│   └── SpellList/
+│       ├── SpellList.tsx
+│       └── SpellList.css
+├── pages/               
+│   ├── Home.tsx
+│   ├── CharacterSheet.tsx
+│   └── SpellLibrary.tsx
+├── interfaces/          # TypeScript type defs
+│   └── types.ts
+├── services/           # Handles external communications (API Calls)
+│   └── spellService.ts
+├── hooks/                 
+│   └── useSpells.ts
+├── utils/              
+│   └── helpers.ts
+├── context/           
+│   └── CharacterContext.tsx
+├── assets/            
+├── styles/            
+│   └── global.css
+├── App.tsx            
+├── main.tsx          
+└── vite-env.d.ts     
