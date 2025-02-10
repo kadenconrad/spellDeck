@@ -1,0 +1,9 @@
+.loading {
+    text-align: center;
+}
+
+.spell-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

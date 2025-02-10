@@ -1,0 +1,33 @@
+Change card border/main color based on either:
+    - current player class
+    - main spell list
+
+Header:
+    - My Characters
+        - Each character should be able to level up with a Level Up button
+            - Level up button should ask appropriate leveling questions
+        - LATER FEATURE: Customizable character card
+    - Spell list
+    - Quick Search (All spells with filtering)
+    - Add Character
+
+Pages:
+- My Characters:
+    - Shows list of user's created characters, with quick details like name, level, race, class
+    - Interior pages:
+        - Character Pages:
+            - Should show character info
+            - Should have spell deck area with two containers:
+                - Prepared
+                - Not Prepared
+                - Should also have button to prepare spells
+            - Each character should be able to level up with a Level Up button
+                - Level up should ask appropriate leveling questions
+            - LATER FEATURE: Customizable character card
+            - Should have a "play" feature, where you can go in and out of "battle mode"
+                - Outside of battle mode, you should be able to adjust health, conditions, and inventory
+                - In battle mode:
+                    - Keep track of turns
+                    - "It's my turn" feature
+                    - Keep track of conditions, health, etc. with buttons
+    - 
