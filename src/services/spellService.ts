@@ -34,26 +34,22 @@ const transformApiSpell = (apiSpell: any): Spell => {
     }
 }
 
-export const getSpells = async (page: number, limit: number): Promise<SpellResponse> => {
+export const getAllSpells = async (): Promise<SpellResponse> => {
     const response = await fetch(`${BASE_URL}/spells`);
     const data: ApiSpellList = await response.json();
 
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    const pageSpells = data.results.slice(start, end);
-
-    const spellPromises = pageSpells.map(async (spell: any) => {
-        const detailResponse = await fetch(`${BASE_URL}/spells/${spell.index}`)
-        const spellData = await detailResponse.json()
+    const spellPromises = data.results.map( async (spell) => {
+        const detailResponse = await fetch(`${BASE_URL}/spells/${spell.index}`);
+        const spellData = await detailResponse.json();
         return transformApiSpell(spellData);
     });
-    
+
     const spells = await Promise.all(spellPromises);
 
     return {
         spells,
         total: data.count
-    }
+    };
 }
 
 export const getSpellByIndex = async (index: string): Promise<Spell> => {
