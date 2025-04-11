@@ -4,10 +4,17 @@ import './SpellCard.css'
 
 interface SpellCardProps {
     spell: Spell;
-    // add more, like onSelect
+    onClick?: () => void;
+    selected?: boolean;
+    collapsed?: boolean;
 }
 
-export const SpellCard = ({ spell }: SpellCardProps) => {
+export const SpellCard = ({ spell, onClick, selected, collapsed = false }: SpellCardProps) => {
+    const handleClick = () => {
+        if (onClick) {
+            onClick();
+        }
+    };
 
     const [higherLevels, setHigherLevels] = useState(false);
     const [isCantrip, setIsCantrip] = useState<boolean>(false);
@@ -17,14 +24,30 @@ export const SpellCard = ({ spell }: SpellCardProps) => {
     }, [spell.atHigherLevels]);
 
     useEffect(() => {
-        setIsCantrip(!!(spell.level === 0))}, 
-        [spell.level]
-    )
+        setIsCantrip(!!(spell.level === 0))
+    }, [spell.level]);
 
+    if (collapsed) {
+        return (
+            <div 
+                className={`spell-card border-2 ${selected ? 'border-slate-950 bg-amber-150 hover:bg-gray-200' : 'border-red-950 bg-amber-100 hover:bg-gray-200'} text-black rounded-lg p-4 m-5 shadow-xl max-w-md overflow-hidden cursor-pointer`}
+                onClick={handleClick}
+            >
+                <div className="spell-header uppercase font-semibold text-red-950 p-1 text-xl border-b-2 border-red-900">
+                    <h3>{spell.name}</h3>
+                    <p className="spell-meta text-base font-semibold normal-case flex gap-1.5 text-red-950/90">
+                        <span>{isCantrip ? "Cantrip" : "Level " + spell.level }</span> <span className='text-red-950/60'> {spell.school} </span>
+                    </p>
+                </div>
+            </div>
+        )
+    }
     return (
-        <div className="spell-card border-2 border-red-950 text-black rounded-lg p-4 m-5 shadow-xl bg-amber-100 max-w-md overflow-hidden">
-            
-            <div className="spell-header uppercase font-bold text-red-950 p-1 text-xl border-b-2 border-red-900">
+        <div 
+            className="spell-card border-2 border-red-950 text-black rounded-lg p-4 m-5 shadow-xl bg-amber-100 max-w-md overflow-hidden cursor-pointer hover:bg-gray-200" 
+            onClick={handleClick}
+        >
+            <div className="spell-header uppercase font-semibold text-red-950 p-1 text-xl border-b-2 border-red-900">
                 <h3>{spell.name}</h3>
                 <p className="spell-meta text-base font-semibold normal-case flex gap-1.5  text-red-950/90">
                     <span>{isCantrip ? "Cantrip" : "Level " + spell.level }</span> <span className='text-red-950/60'> {spell.school} </span>
@@ -37,7 +60,7 @@ export const SpellCard = ({ spell }: SpellCardProps) => {
                     <p className='pr-1 pb-0.5'><span className='text-nowrap font-semibold'>Range:</span> {spell.range}</p>
                 </div>
                 <div>
-                    <p className='pl-1 pt-0.5 pb-1'><span className='text-nowrap font-semibold'>Components:</span> {spell.components}</p>
+                    <p className='pl-1 pt-0.5 pb-1'><span className='text-nowrap font-semibold'>Components:</span> {spell.components.join(', ')}</p>
                     <p className='pl-1 pb-0.5'><span className='text-nowrap font-semibold'>Duration:</span> {spell.duration}</p>
                 </div>
             </div>
@@ -48,10 +71,9 @@ export const SpellCard = ({ spell }: SpellCardProps) => {
 
             {higherLevels && (
                 <div className="spell-higherLevels border-t-2 border-red-900/25 p-1">
-                <p><span className='text-red-950 font-semibold'>Higher Levels:</span> {spell.atHigherLevels}</p>
-            </div>
+                    <p><span className='text-red-950 font-semibold'>Higher Levels:</span> {spell.atHigherLevels}</p>
+                </div>
             )}
-            
         </div>
     )
 }

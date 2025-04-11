@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { SpellList } from './components/SpellList/SpellList'
 import Navbar from './components/Navbar'
 import './App.css'
+import { DeckBuilder } from './components/DeckBuilder/DeckBuilder'
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
         <Navbar />
             <Routes>
               <Route path="/" element={<SpellList />} />
+              <Route path="/decks" element={<DeckBuilder />} />
+              <Route path="/decks/:id" element={<DeckBuilder />} />
             </Routes>
         </main>
       </div>

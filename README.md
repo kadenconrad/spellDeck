@@ -52,20 +52,18 @@ The groundwork for a D&D SpellDeck building web app built w/ React + TS + Vite
 ### SpellList –
 - Main component for displaying and filtering spells
 - Fetches all spells on mount using spellService
-- Provides filtering by class and spell level
+- Provides filtering by spell class, level, school, casting time, range, duration, component(s), and name
 - Implements pagination for browsing through the spell list
-- Displays SpellCard components for each spell in the current page
+- Displays SpellCards for each spell in the current page
 
 ### Navbar –
-- Navigation bar component with D&D Spell Decks branding
-- Contains links to home page and "My Spell Decks" page
+- Navigation bar component with D&D Spell Decks
+- Contains links to home page and "My Spell Decks" page (NOT BUILT)
 - Responsive design with mobile support
 - Styled with Tailwind CSS
 
 ### FUTURE DEVELOPMENT:
 - Implement user authentication for saving custom spell decks
 - Add character management functionality
-- Enhance filtering options (by components, schools, etc.)
-- Add spell searching by name
 - Create custom spell deck builder interface
 - Add favorite/bookmark functionality for frequently used spells

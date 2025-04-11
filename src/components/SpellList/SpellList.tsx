@@ -3,7 +3,15 @@ import { Spell } from '../../interfaces/types'
 import { SpellCard } from '../SpellCard/SpellCard';
 import { getAllSpells } from '../../services/spellService';
 
-export const SpellList = () => {
+export const SpellList = ({ 
+    collapsed = false,
+    onSpellSelect,
+    selectedSpell
+}: { 
+    collapsed?: boolean;
+    onSpellSelect?: (spell: Spell) => void;
+    selectedSpell?: Spell | null;
+}) => {
     // Primary State
     const [spells, setSpells] = useState<Spell[]>([]);
     const [loading, setLoading] = useState(true);
@@ -106,7 +114,7 @@ export const SpellList = () => {
     return (
         <div className="spell-list-container">
             {/* Filter Section */}
-            <div className="filter-section flex flex-row items-start justify-start gap-4 px-4 py-2 flex-wrap">
+            <div className={`filter-section flex flex-row items-start justify-start flex-wrap ${collapsed ? 'gap-2 px-2 py-1 text-sm' : 'gap-4 px-4 py-2'}`}>
                 <label>
                     Filter by Class: 
                     <select onChange={(e) => setSelectedClass(e.target.value || '')} className="border-2 border-gray-300 rounded-md p-1 mx-1">
@@ -236,24 +244,30 @@ export const SpellList = () => {
                 <>
                     <div className="flex flex-wrap justify-center">
                         {paginatedSpells.map(spell => (
-                            <SpellCard key={spell.id} spell={spell} />
+                            <SpellCard 
+                                key={spell.id} 
+                                spell={spell}
+                                collapsed={collapsed}
+                                onClick={() => onSpellSelect?.(spell)}
+                                selected={selectedSpell?.id === spell.id}
+                            />
                         ))}
-                        </div>
-                        <div className="pagination">
-                            <button onClick={() => {
-                                setPage(p => p - 1);
-                                window.scrollTo(0, 0);}} 
-                                disabled={page === 1}
-                                className="bg-red-950 text-white px-4 py-2 rounded-xl m-5 cursor-pointer">Previous </button>
-                            <span className="text-black px-2 py-2"> Page {page} of {totalPages} </span>
-                            <button onClick={() => {
-                                setPage(p => p + 1);
-                                window.scrollTo(0, 0);}} 
-                                disabled={page === totalPages}
-                                className="bg-red-950 text-white px-4 py-2 rounded-xl m-5 cursor-pointer">Next </button>
-                        </div>
+                    </div>
+                    <div>
+                        <button onClick={() => {
+                            setPage(p => p - 1);
+                            window.scrollTo(0, 0);}} 
+                            disabled={page === 1}
+                            className="bg-red-950 text-white px-4 py-2 rounded-xl m-5 cursor-pointer">Previous </button>
+                        <span className="text-black px-2 py-2"> Page {page} of {totalPages} </span>
+                        <button onClick={() => {
+                            setPage(p => p + 1);
+                            window.scrollTo(0, 0);}} 
+                            disabled={page === totalPages}
+                            className="bg-red-950 text-white px-4 py-2 rounded-xl m-5 cursor-pointer">Next </button>
+                    </div>
                 </>
             )}
-            </div>
+        </div>
     );
 };

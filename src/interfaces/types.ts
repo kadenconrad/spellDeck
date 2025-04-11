@@ -26,3 +26,13 @@ export interface Character {
     spellcastingAbility: 'INT' | 'WIS' | 'CHA'
     spells: Spell[];
 }
+
+export interface SpellDeck {
+    id: string;
+    name: string;
+    description?: string;
+    spells: Spell[];
+    // character: Character | null;
+    createdAt: number | Date;
+    updatedAt?: number | Date;
+}
